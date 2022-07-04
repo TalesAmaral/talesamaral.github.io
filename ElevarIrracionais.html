@@ -10,10 +10,10 @@
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 		<script>
 			MathJax = {
-				tex: {
-					inlineMath: [['$', '$'], ['\\(', '\\)']]
-				},
-			};
+							tex: {
+											inlineMath: [['$', '$'], ['\\(', '\\)']]
+										},
+						};
 		</script>
 		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 	</head>
@@ -21,13 +21,30 @@
 		<h1> Truque para elevar irracionais complicados</h2>
 	</header>
 	<body>
-		<p> Vamos supor que você queira calcular $\phi^{10} = \left(\dfrac{1+\sqrt{5}}{2}\right)^{10} $, sabendo que $\phi \approx 1,61 $. A ideia é achar um polinômio com coeficientes inteiros e uma das raízes iguais a $ \phi $. Então se \[ \begin{align*} x = \phi = \dfrac{ 1+\sqrt{5}}{2} &\implies \\~\\ 2x -1 = \sqrt{5} &\implies \\~\\ 4x^2 -4x+1 = 5 &\implies \\~\\ x^2 =  x+1 &\end{align*} \] Achamos $\phi^2$ em função de $\phi$. Observe que podemos multiplicar ambos os lados da equação por $x$, resultando em $x^3 = x^2+x = \left(x+1\right) +x = 2x+1$. Creio que você ja vê onde vamos chegar: \[ \begin{align*} x^3 = 2x+1 &\implies \\~\\ x^5 = 2x^3+x^2 = 5x+3 &\implies \\~\\ x^{10} = 25x^2+30x+9 = 55x+34 & \\~\\  \end{align*} \] Então $\phi^{10} = 55\phi+34 \approx 55\cdot1,61+34 \approx 122,55$.</p> 
+		<p> Vamos supor que você queira calcular $\phi^{10} = \left(\dfrac{1+\sqrt{5}}{2}\right)^{10} $, sabendo que $\phi \approx 1,61 $. A ideia é achar um polinômio com coeficientes inteiros e uma das raízes iguais a $ \phi $. Então se </p> 
+		\[ \begin{align*} x = \phi = \dfrac{ 1+\sqrt{5}}{2} &\implies \\~\\ 2x -1 = \sqrt{5} &\implies \\~\\ 4x^2 -4x+1 = 5 &\implies \\~\\ x^2 =  x+1 &\end{align*} \]
+		<p> Achamos $\phi^2$ em função de $\phi$. Observe que podemos multiplicar ambos os lados da equação por $x$, resultando em $x^3 = x^2+x = \left(x+1\right) +x = 2x+1$. Creio que você ja vê onde vamos chegar: </p> 
+		\[ \begin{align*} x^3 = 2x+1 &\implies \\~\\ x^5 = 2x^3+x^2 = 5x+3 &\implies \\~\\ x^{10} = 25x^2+30x+9 = 55x+34 & \\~\\  \end{align*} \] 
+		<p> Então $\phi^{10} = 55\phi+34 \approx 55\cdot1,61+34 \approx 122,55$.
+		</p>
+		<p> Obs:   Você pode notar que <a href = "phiFib.html" >$\phi^n = f_n\cdot \phi +f_{n-1}$ </a>, onde $f_n$ é o enésimo termo da sequência de fibonacci </p>
+		<p> Complicando um pouco mais: qual o valor de $\left(\sqrt{2}+\sqrt{3}\right)^8$, sabendo que $\sqrt{2} \approx 1.414$ e $\sqrt{3} \approx 1.732$? </p>
+		\[\begin{align*} 
+			x = \sqrt{2}+\sqrt{3} &\implies\\~\\
+			x^2 = 2+2\sqrt{6}+3 &\implies \\~\\
+			x^2-5 = 2\sqrt{6} &\implies \\~\\
+			x^4-10x^2+25 = 24 &\implies \\~\\
+			x^4 = 10x^2-1 
+		\end{align*}  \]
+		<p> Com o polinômio em mãos podemos elevar ambos os lados ao quadrado, obtendo $x^8 = 100x^4-20x^2+1 = 980x^2-99 $. Substituindo: </p>
+		\[ \begin{align*} 
+		\left(\sqrt{2}+\sqrt{3}\right)^8 &= 980\cdot\left(5+2\sqrt{6}\right) -99 \\~\\ &= 4900+1960\sqrt{6} -99 \\~\\ &\approx 4801+1960\cdot1.414\cdot1.732 \\~\\&\approx 9601  \end{align*} \]
 		<button onclick="trocar()">dark mode</button>
 		<script>
 			function trocar() {
-				   var corpo = document.body;
-				   corpo.classList.toggle("dark-mode");
-			}
+							var corpo = document.body;
+							corpo.classList.toggle("dark-mode");
+						}
 		</script>
 	</body>
 </html>
