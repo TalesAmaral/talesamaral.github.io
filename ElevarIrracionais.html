@@ -8,13 +8,20 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href = "padrao.css">
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script>
+			MathJax = {
+				tex: {
+					inlineMath: [['$', '$'], ['\\(', '\\)']]
+				},
+			};
+		</script>
 		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 	</head>
 	<header>
 		<h1> Truque para elevar irracionais complicados</h2>
 	</header>
 	<body>
-		<p> Vamos supor que você queria calcular \(\phi^{10} = \left(\dfrac{1+\sqrt{5}}{2}\right)^{10} \) </p>
+		<p> Vamos supor que você queira calcular $\phi^{10} = \left(\dfrac{1+\sqrt{5}}{2}\right)^{10} $, sabendo que $\phi \approx 1,61 $. A ideia é achar um polinômio com coeficientes inteiros e uma das raízes iguais a $ \phi $. Então se \[ \begin{align*} x = \phi = \dfrac{ 1+\sqrt{5}}{2} &\implies \\~\\ 2x -1 = \sqrt{5} &\implies \\~\\ 4x^2 -4x+1 = 5 &\implies \\~\\ x^2 =  x+1 &\end{align*} \] Achamos $\phi^2$ em função de $\phi$. Observe que podemos multiplicar ambos os lados da equação por $x$, resultando em $x^3 = x^2+x = \left(x+1\right) +x = 2x+1$. Creio que você ja vê onde vamos chegar: \[ \begin{align*} x^3 = 2x+1 &\implies \\~\\ x^5 = 2x^3+x^2 = 5x+3 &\implies \\~\\ x^{10} = 25x^2+30x+9 = 55x+34 & \\~\\  \end{align*} \] Então $\phi^{10} = 55\phi+34 \approx 55\cdot1,61+34 \approx 122,55$.</p> 
 	</body>
 </html>
 
