@@ -7,6 +7,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href = "padrao.css">
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script>
+			MathJax = {
+							tex: {
+											inlineMath: [['$', '$'], ['\\(', '\\)']]
+										},
+						};
+		</script>
 		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 	</head>
 	<header>
@@ -18,13 +25,11 @@
 			<li>
 				<a href="ElevarIrracionais.html"> Truque para elevar irracionais complicados </a>
 			</li>
+			<li>
+				<a href="phifib.html"> Demonstração $\phi^n = f_n\cdot \phi +f_{n-1}$ (Razão Áurea e Sequência de Fibonacci)</a>
+			</li>
 		</ul>
 		<button onclick="trocar()">dark mode</button>
-		<script>
-			function trocar() {
-				   var corpo = document.body;
-				   corpo.classList.toggle("dark-mode");
-			}
-		</script>
+		<script type = "text/javascript" src ="trocar.js"></script>
 	</body>
 </html>
