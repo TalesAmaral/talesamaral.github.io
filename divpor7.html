@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name = "description" content = "Demonstrando o critério de divisibilidade por 7.">
+		<title> Divisibilidade por 7</title>
+		<meta name = "author" content = "tales amaral"> 
+		<link rel="icon" type="image/x-icon" href="img/tandera.ico">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href = "padrao.css">
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script>
+			MathJax = {
+							tex: {
+											inlineMath: [['$', '$'], ['\\(', '\\)']]
+										},
+						};
+		</script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	</head>
+	<header>
+		<h1> Critério de divisibilidade por $7$ </h2>
+	</header>
+	<body>
+		<p> Seja $\overline{a_{n}a_{n-1}\cdots a_{2}a_{1}}$ um número genérico. Temos que </p>
+		\[ \begin{align*}
+		\overline{a_{n}a_{n-1}\cdots a_{2}a_{1}} &= \sum_{i = 2}^{n} 10^{i-1}\cdot a_i +a_1\\~\\
+		\end{align*}\]	
+		<p> Multiplicando ambos os lados por 5, pois $5\cdot 10 = 50 \equiv 1 \mod(7)$: </p>
+		\[ \begin{align*}
+		5\cdot\left(\overline{a_{n}a_{n-1}\cdots a_{2}a_{1}}\right) &= 5\cdot\sum_{i=2}^n 10^{i-1} \cdot a_i + 5a_1 \\~\\
+		&\equiv  \sum_{i=2}^n 10^{i-2}\cdot 50 \cdot a_i -2\cdot a_1 \mod(7)  \\~\\
+		&\equiv  \sum_{i=2}^n 10^{i-2} \cdot a_i -2\cdot a_1 \mod(7)  \\~\\
+		&\equiv \overline{a_{n}a_{n-1}\cdot a_{3}a_{2}} -2\cdot a_1 \mod(7) 
+		\end{align*}\]	
+	
+		<p>Como 5 é coprimo com 7, temos que um número é divisível por 7 se o número sem o primeiro dígito subtraído do dobro do primeiro dígito for divisível por 7.</p>
+		<button onclick="trocar()">dark mode</button>
+		<script type = "text/javascript" src ="trocar.js"></script>
+	</body>
+</html>
+
+
