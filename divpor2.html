@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name = "description" content = "Demonstrando o critério de divisibilidade por 2.">
+		<title> Divisibilidade por 2</title>
+		<meta name = "author" content = "tales amaral"> 
+		<link rel="icon" type="image/x-icon" href="img/tandera.ico">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href = "padrao.css">
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script>
+			MathJax = {
+							tex: {
+											inlineMath: [['$', '$'], ['\\(', '\\)']]
+										},
+						};
+		</script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	</head>
+	<header>
+		<h1> Critério de divisibilidade por $2$ </h2>
+	</header>
+	<body>
+		<p> Seja $\overline{a_{n}a_{n-1}\cdots a_{2}a_{1}}$ um número genérico. Temos que </p>
+		\[ \begin{align*} \overline{a_{n}a_{n-1}\cdots a_{2}a_{1}}  &= 10\cdot \overline{a_{n}a_{n-1}\cdots  a_{3} a_{2}} + \overline{a_{1}} \\~\\ &= 2\cdot\left(5\cdot \overline{a_{n}a_{n-1}\cdots  a_{3} a_{2}}\right) + \overline{a_{1}} \\~\\ &= 2k+\overline{a_1},\: k \in \mathbb{N} \end{align*}\]
+		<p> Portanto um número só é par se seu primeiro dígito for par, ou seja: se $\overline{a_1} \in \{0,2,4,6,8\}$. </p>
+		<button onclick="trocar()">dark mode</button>
+		<script type = "text/javascript" src ="trocar.js"></script>
+	</body>
+</html>
+
+

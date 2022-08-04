@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name = "description" content = "Resolvendo um problema envolvendo interseções de duas parábolas perpendiculares.">
+		<title> Duas parábolas se encontram numa circunferência </title>
+		<meta name = "author" content = "tales amaral"> 
+		<link rel="icon" type="image/x-icon" href="img/tandera.ico">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href = "padrao.css">
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script>
+			MathJax = {
+							tex: {
+											inlineMath: [['$', '$'], ['\\(', '\\)']]
+										},
+						};
+		</script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	</head>
+	<header>
+		<h1>  Duas parábolas se encontram numa circunferência </h2>
+	</header>
+	<body>
+		<h2> Enunciado </h2>
+		<p> Duas parábolas de eixos perpendiculares possuem quatro pontos em comum. Prove que os quatro pontos pertencem a uma circunferência. </p>
+		<h2> Solução </h2>
+		<p> Podemos definir os eixos de forma que eles sejam perpendiculares às diretrizes, de forma que as parábolas sejam na forma $y = ax^2+bx+c$ e $x = my^2+ny+o$. Supomos que o sistema </p>
+		\[ \begin{cases} y = ax^2+bx+c \\ x = my^2+ny+o \end{cases} \] 
+		<p> possui 4 soluções. Se um ponto $P = (x,y)$ é uma interseção, então ele resolve as duas equações simultaneamente, portanto podemos somá-las: $x+y = ax^2+bx+c +my^2+ny+o \iff -c-o = a\cdot\left[x^2+\dfrac{(b-1)x}{a} \right]+m\cdot\left[y^2+\dfrac{(n-1)y}{m} \right] \iff \dfrac{(b-1)^2}{4a} +\dfrac{(n-1)^2}{4m} -c-o = a\cdot\left(x+\dfrac{b-1}{2a} \right)^2 +m\cdot\left(y+\dfrac{n-1}{2m}\right)^2$ </p>
+		<button onclick="trocar()">dark mode</button>
+		<script type = "text/javascript" src ="trocar.js"></script>
+	</body>
+</html>
+
