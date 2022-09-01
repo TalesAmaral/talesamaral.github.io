@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name = "description" content = "Demonstrando o critério de divisibilidade por 11.">
+		<title> Divisibilidade por 11</title>
+		<meta name = "author" content = "tales amaral"> 
+		<link rel="icon" type="image/x-icon" href="img/tandera.ico">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href = "padrao.css">
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script>
+			MathJax = {
+							tex: {
+											inlineMath: [['$', '$'], ['\\(', '\\)']]
+										},
+						};
+		</script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	</head>
+	<header>
+		<h1> Critério de divisibilidade por $11$ </h2>
+		<hr></hr>
+	</header>
+	<body>
+		<p> Seja $\overline{a_{n}a_{n-1}\cdots a_{2}a_{1}}$ um número genérico. Temos que </p>
+		\[ 
+		\begin{align*}
+		\overline{a_{n}a_{n-1}\cdots a_{2}a_{1}} &= \displaystyle\sum_{i =0}^n \left( a_i\cdot10^{i-1}\right) \\~\\
+		&=  \displaystyle\sum_{i =0}^n \left[ a_i\cdot(11 -1)^{i-1}\right] \\~\\
+		&\equiv \displaystyle\sum_{i =0}^n \left[ a_i\cdot(-1)^{i-1}\right] \mod (11) \\~\\
+		&\equiv a_1 -a_2+ \cdots+a_{n-1}\cdot(-1)^{n-2} +a_{n}\cdot(-1)^{n-1} \mod(11)
+
+		\end{align*}
+		\]
+		<p> Portanto um número só é múltiplo de 11 se essa soma alternada for múltipla de 11. </p>
+		<button onclick="trocar()">dark mode</button>
+		<script type = "text/javascript" src ="trocar.js"></script>
+	</body>
+</html>
+
+
