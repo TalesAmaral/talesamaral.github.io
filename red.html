@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- Minified version -->
+		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+
+		<!-- Un-Minified version -->
+		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+		<meta name="description" content="">
+		<style>
+			video{
+				max-width: 500px;
+				max-height: 500px;
+			}
+			img{
+				max-width: 500px;
+				max-height: 500px;
+			}
+		</style>
+
+		<!-- the below three lines are a fix to get HTML5 semantic elements working in old versions of Internet Explorer-->
+		<!--[if lt IE 9]>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<label for="sub">
+			Type the sub
+			<input id="sub" name="sub" type="text">
+		</label>
+
+		<button onclick="getData()"> Search </button>
+		<article id = "mural">
+
+		</article>
+		<script>
+		function getData(){
+			const subName = document.getElementById("sub").value;
+			const link = 'https://www.reddit.com/r/'+subName+'/top.json?t=day&limit=10';
+			var mural = document.getElementById("mural");
+			while (mural.firstChild) {
+				mural.firstChild.remove()
+			}
+			fetch(link)
+				.then(function(res){
+						return res.json();
+						})
+			.then(function(res){
+					const posts = res.data.children;
+					const title = document.createElement("h1");
+					const titleText = document.createTextNode("Posts from "+ subName+":");
+					title.appendChild(titleText);
+					mural.appendChild(title);
+
+					posts.forEach( post => {
+							let content = post.data;
+							let section = document.createElement("section");
+							let postTitle = document.createElement("h2"); 
+							let titleNode = document.createTextNode(content.title);
+							postTitle.appendChild(titleNode);
+
+							let postText = document.createElement("p"); 
+							if (content.selftext_html != null){
+											postText.innerHTML = content.selftext_html;
+											postText.innerHTML = postText.textContent;
+							} else {
+								postText.nodeValue = content.selftext;
+										}
+							let line= document.createElement("hr");
+
+							section.appendChild(postTitle);
+							section.appendChild(postText);
+							if (content.post_hint == "image" || content.domain =="i.redd.it"){
+							let postImage = document.createElement("img"); 
+							postImage.src = content.url;
+							section.appendChild(postImage);
+							} else if (content.is_video == true){
+							let postVideo = document.createElement("video");
+							let source = document.createElement("source"); 
+							source.src = content.media.reddit_video.fallback_url;
+							postVideo.appendChild(source);
+							postVideo.controls = true;
+							section.appendChild(postVideo);
+
+							}else {
+								let link = content.url;
+								let linkNode = document.createElement("a");
+								linkNode.href = link;
+								linkNode.textContent = link;
+
+								section.appendChild(linkNode);
+							}
+							section.appendChild(line);
+
+							mural.appendChild(section);
+					});
+
+
+
+
+
+			})
+			.catch(function(err){
+					console.log(err);
+					});
+		}
+		</script>
+	</body>
+</html>
