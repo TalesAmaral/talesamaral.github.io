@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!-- Minified version -->
+		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+
+		<!-- Un-Minified version -->
+		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+		<meta name="description" content="Dados dos deputados.">
+		<title> Dados dos deputados. </title>
+		<style>
+						img{
+							max-width: 114px;
+							max-height: 152px;
+						}
+		</style>
+
+		<!-- the below three lines are a fix to get HTML5 semantic elements working in old versions of Internet Explorer-->
+		<!--[if lt IE 9]>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<main id = "mural">
+
+		</main>
+		<script>
+			const link = 'https://dadosabertos.camara.leg.br/api/v2/deputados?ordem=ASC&ordenarPor=nome';
+						var mural = document.getElementById("mural");
+						while (mural.firstChild) {
+										mural.firstChild.remove()
+									}
+			fetch(link)
+				.then(function(res){
+								return res.json();
+							})
+				.then(function(res){
+								/*
+		       email
+		       : 
+		       null
+		       id
+		       : 
+		       204521
+		       idLegislatura
+		       : 
+		       56
+		       nome
+		       : 
+		       "Abou Anni"
+		       siglaPartido
+		       : 
+		       "UNIÃO"
+		       siglaUf
+		       : 
+		       "SP"
+		       uri
+		       : 
+		       "https://dadosabertos.camara.leg.br/api/v2/deputados/204521"
+		       uriPartido
+		       : 
+		       "https://dadosabertos.camara.leg.br/api/v2/partidos/38009"
+		       urlFoto
+		       : 
+		       "https://www.camara.leg.br/internet/deputado/bandep/204521.jpg"
+											 */
+								console.log(res);
+								const deputadosData = res.dados;
+								const tabela = document.createElement("table");
+								const linhaPrincipal = document.createElement("tr");
+
+								const nomeCell = document.createElement("th");
+								let cellText = document.createTextNode("Nome");
+								nomeCell.appendChild(cellText);
+
+								const fotoCell = document.createElement("th");
+								cellText = document.createTextNode("Foto");
+								fotoCell.appendChild(cellText);
+
+								const partidoCell = document.createElement("th");
+								cellText = document.createTextNode("Partido");
+								partidoCell.appendChild(cellText);
+
+								const estadoCell = document.createElement("th");
+								cellText = document.createTextNode("União");
+								estadoCell.appendChild(cellText);
+
+								linhaPrincipal.appendChild(fotoCell);
+								linhaPrincipal.appendChild(nomeCell);
+								linhaPrincipal.appendChild(estadoCell);
+								linhaPrincipal.appendChild(partidoCell);
+
+								tabela.appendChild(linhaPrincipal);
+
+
+								deputadosData.forEach( deputado => {
+												let linhaDep = document.createElement("tr");
+
+
+												let nomeDepCell = document.createElement("td");
+												let nomeLink = document.createElement("a");
+												nomeLink.href = "depDados.html?id="+deputado.id;
+												let cellText = document.createTextNode(deputado.nome);
+												nomeLink.appendChild(cellText);
+												nomeDepCell.appendChild(nomeLink);
+
+
+												let fotoDepCell = document.createElement("td");
+												let imgEl = document.createElement("img");
+												imgEl.src = deputado.urlFoto
+												fotoDepCell.appendChild(imgEl);
+
+												let partidoDepCell = document.createElement("td");
+												cellText = document.createTextNode(deputado.siglaPartido);
+												partidoDepCell.appendChild(cellText);
+
+												let estadoDepCell = document.createElement("td");
+												cellText = document.createTextNode(deputado.siglaUf);
+												estadoDepCell.appendChild(cellText);
+
+
+												linhaDep.appendChild(fotoDepCell);
+												linhaDep.appendChild(nomeDepCell);
+												linhaDep.appendChild(estadoDepCell);
+												linhaDep.appendChild(partidoDepCell);
+
+
+												tabela.appendChild(linhaDep);
+
+											});
+								mural.appendChild(tabela);
+
+							})
+				.catch(function(err){
+								console.log(err);
+							});
+
+		</script>
+	</body>
+</html>
