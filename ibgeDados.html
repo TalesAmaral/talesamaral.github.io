@@ -11,6 +11,10 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+		</script>
+
 		<script>
 			MathJax = {
 							tex: {
@@ -68,8 +72,8 @@
 			</div>
 			<script>
 				function nomeData(){
-					const nome = document.getElementById("nome").value;
-					const link = 'https://servicodados.ibge.gov.br/api/v2/censos/nomes/'+nome;
+					const nomeInput = document.getElementById("nome").value;
+					const link = 'https://servicodados.ibge.gov.br/api/v2/censos/nomes/'+nomeInput;
 					var mural = document.getElementById("dadosNome");
 					while (mural.firstChild) {
 						mural.firstChild.remove()
@@ -84,14 +88,33 @@
 						});
 
 						const qtdText = document.createElement("p");
-						var cellText = document.createTextNode("Existem "+qtd+" pessoas chamadas "+nome+" no Brasil.")
+						var cellText = document.createTextNode("Existem "+qtd+" pessoas chamadas "+nomeInput+" no Brasil.");
 						qtdText.appendChild(cellText);
 						mural.appendChild(qtdText);
+						var xValues = res[0].res.map(({periodo})=>periodo);
+						var yValues = res[0].res.map(({frequencia})=>frequencia);
+										const canvas = document.createElement("canvas");
+
+						new Chart(canvas, {
+						  type: "line",
+						  data: {
+						    labels: xValues,
+						    datasets: [{
+						      backgroundColor: "rgba(0,0,0,1.0)",
+						      borderColor: "rgba(0,0,0,0.1)",
+						      data: yValues
+						    }]
+						  },
+							  options:{
+							legend: {display: false},
+							}
+						});
+						mural.appendChild(canvas);
 
 					}).catch(function(err){
 						console.log(err);
 						const qtdText = document.createElement("p");
-						var cellText = document.createTextNode("Não existem pessoas o suficienete com esse nome no Brasil.")
+						var cellText = document.createTextNode("Não existem pessoas o suficienete com esse nome no Brasil.");
 						qtdText.appendChild(cellText);
 						mural.appendChild(qtdText);
 					});
