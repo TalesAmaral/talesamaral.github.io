@@ -30,8 +30,20 @@
 		</header>
 	<body>
 		<main>
+			<section> 
+				<h2> Introdução e importância</h2>
 			<p> O Teorema da dedução é um meta-teorema do cálculo proposicional. Seu enunciado é: Se $\Gamma\cup \{A\}\vdash B$, então $\Gamma\vdash A \implies B$.</p>
 			<p> Um enunciado mais humano seria: Se com os axiomas, um conjunto de hipóteses $\Gamma$ e com uma hipotese $A$ é possível deduzir $B$, então com o mesmo conjunto $\Gamma$ é possível deduzir $A \implies B$. </p> 
+			<p> O Teorema da dedução é importante pois confirma a possibilidade de assumir uma hipótese $A$ e chegar em $B$ para demonstrar $A\implies B$. Por exemplo, se quisermos demonstrar $x \text{ primo} \implies x^2 \text{ primo}$, podemos assumir $x \text{ primo}$ e chegar usando os axiomas da aritmética que $x^2$ é primo e isso seria equivalente a demonstrar a implicação. </p> 
+			
+			</section>
+			<section>
+				<h2> Demonstração </h2>
+				<p> Queremos demonstrar: Se $\Gamma\cup \{A\}\vdash B$, então $\Gamma\vdash A \implies B$. </p>
+				<p> Primeiro, vamos analisar o que $\Gamma\cup \{A\}\vdash B$ significa. A nossa hipótese diz que existe uma demonstração de $B$ usando $\Gamma\cup \{A\}$ como hipótese. Ou seja, existe uma sequência $X_1,X_2,\cdots,X_n$, onde $X_n = B$ e cada $X_i$ veio por M.P de dois anteriores, é igual a A $\left(X_i = A\right)$, ou pertence a $\Gamma$ $\left(X_i \in \Gamma\right)$. </p>
+				<p> A demonstração será por indução no tamanho da sequência $X_1,X_2,\cdots,X_n$. O caso $n=1$ é direto, pois $X_n = B$. </p> 
+				<p> No caso $n=1$, temos $X_n = B$. Daí temos $X_n = B = A$ ou $X_n = B \in\Gamma$. Se $B = A$, a implição $A\implies B \equiv A \implies A$ sai pelo <a href ="https://math.stackexchange.com/questions/3464741/propositional-logic-how-to-prove-that-a-implies-itself">Teorema 1</a>, portanto $\Gamma \vdash A \implies B$. Se $B\in \Gamma$, temos </p>
+			</section>
 		</main>
 	</body>
 </html>
