@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 	<head>
@@ -7,24 +6,29 @@
 	<body>
 
 		<script>
-			function atualizarPos(posX,posY,dir,w,h){
+			function atualizarPos(pos,dir,w,h){
 				switch (dir){
 					case 0:
-						posX -=1;
+						pos[0] -=1;
 						break;
 					case 1:
-						posY-=1;
+						pos[1]-=1;
 						break;
 					case 2:
-						posX+=1;
+						pos[0]+=1;
 						break;
 					case 3:
-						posY+=1;
+						pos[1]+=1;
 				}
 
-				posY = ((posY % h) + h) % h;
-				posX = ((posX % w) + w) % w;
-				return posX,posY
+				return [ ((pos[0] % w) + w) % w , ((pos[1] % h) + h) % h];
+			}
+			function detectarColisao(pos,  text){
+				pixel = text.getPixel(pos[0], pos[1], 'key');
+				if (pixel._color !=0){
+					return true;
+				}
+				return false;
 			}
 			const w = 800;
 			const h = 600;
@@ -42,9 +46,12 @@
 
 			var game = new Phaser.Game(config);
 
-			var posX = w/2;
-			var posY = h/2
+			var playerPos = [w/2, 0];
+			var botPos = [ 0 , h/2 ];
+			var botDir = 0;
+			var botPosTemp;
 			var dir =  3; 
+			var pixel;
 			var player;
 			var graphics;
 
@@ -59,6 +66,7 @@
 
 			function update ()
 			{
+				graphics.generateTexture('key', w, h);
 
 				this.input.keyboard.on('keydown', function (event) {
 					switch (event.keyCode){
@@ -78,23 +86,32 @@
 
 
 				});
-				
+				botPosTemp = [...botPos];
+				botPos = atualizarPos(botPos, botDir,w,h);
+				playerPos = atualizarPos(playerPos, dir,w,h);
 
-				if (dir!=0){	
-					this.game.renderer.snapshotPixel(posX,posY, function(cor){
-						if (cor._color !=0){
-							game.destroy()
-						}
-					});
-				} else{
 
-					this.game.renderer.snapshotPixel(posX-2,posY, function(cor){
-						if (cor._color !=0){
-							game.destroy()
-						}
-					});
+
+				if (detectarColisao(botPos,this.textures)){
+					botDir = (botDir+1)%4;
+					botPos = atualizarPos(botPosTemp, botDir,w,h);
 				}
-				graphics.fillRect(posX-1, posY-1, 1, 1);
+
+				if (detectarColisao(botPos,this.textures)){
+					botDir = (botDir+2)%4
+					botPos = atualizarPos(botPosTemp, botDir,w,h);
+				}
+				if (detectarColisao(playerPos,this.textures)) {
+					game.destroy()
+				}
+				if (detectarColisao(botPos, this.textures)) {
+					game.destroy()
+				}
+
+				graphics.fillStyle(0xFFFFFF, 1.0);
+				graphics.fillRect(playerPos[0], playerPos[1], 1, 1);
+				graphics.fillStyle(0x00FF00, 1.0);
+				graphics.fillRect(botPos[0], botPos[1], 1, 1);
 			}
 		</script>
 
