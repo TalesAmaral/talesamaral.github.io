@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src=" https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js "></script>
+	</head>
+	<body>
+
+		<script>
+			function atualizarPos(posX,posY,dir,w,h){
+				switch (dir){
+					case 0:
+						posX -=1;
+						break;
+					case 1:
+						posY-=1;
+						break;
+					case 2:
+						posX+=1;
+						break;
+					case 3:
+						posY+=1;
+				}
+
+				posY = ((posY % h) + h) % h;
+				posX = ((posX % w) + w) % w;
+				return posX,posY
+			}
+			const w = 800;
+			const h = 600;
+			var config = {
+				width: w,
+				height: h,
+				type: Phaser.AUTO,
+				parent: 'phaser-example',
+				scene: {
+					create: create,
+					update: update
+				}
+			};
+
+
+			var game = new Phaser.Game(config);
+
+			var posX = w/2;
+			var posY = h/2
+			var dir =  3; 
+			var player;
+			var graphics;
+
+			function create ()
+			{
+				graphics = this.add.graphics();
+
+				graphics.fillStyle(0xFFFFFF, 1.0);
+
+
+			}
+
+			function update ()
+			{
+
+				this.input.keyboard.on('keydown', function (event) {
+					switch (event.keyCode){
+						case 37:
+							dir = dir == 2 ? 2: 0;
+							break;
+						case 38:
+							dir =  dir == 3 ? 3: 1;
+							break;
+						case 39:
+							dir = dir == 0? 0 : 2;
+							break;
+						case 40:
+							dir =dir == 1? 1 : 3;
+					}
+
+
+
+				});
+				
+
+				if (dir!=0){	
+					this.game.renderer.snapshotPixel(posX,posY, function(cor){
+						if (cor._color !=0){
+							game.destroy()
+						}
+					});
+				} else{
+
+					this.game.renderer.snapshotPixel(posX-2,posY, function(cor){
+						if (cor._color !=0){
+							game.destroy()
+						}
+					});
+				}
+				graphics.fillRect(posX-1, posY-1, 1, 1);
+			}
+		</script>
+
+	</body>
+</html>
