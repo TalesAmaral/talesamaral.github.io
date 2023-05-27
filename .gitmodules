@@ -1,0 +1,3 @@
+[submodule "spaceInvaders"]
+	path = spaceInvaders
+	url = https://github.com/TalesAmaral/spaceInvaders
