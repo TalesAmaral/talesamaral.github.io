@@ -40,11 +40,48 @@
 			<section>
 				<h2> Demonstração </h2>
 				<p> Queremos demonstrar: Se $\Gamma\cup \{A\}\vdash B$, então $\Gamma\vdash A \implies B$. </p>
-				<p> Primeiro, vamos analisar o que $\Gamma\cup \{A\}\vdash B$ significa. A nossa hipótese diz que existe uma demonstração de $B$ usando $\Gamma\cup \{A\}$ como hipótese. Ou seja, existe uma sequência $X_1,X_2,\cdots,X_n$, onde $X_n = B$ e cada $X_i$ veio por M.P de dois anteriores, é igual a A $\left(X_i = A\right)$, ou pertence a $\Gamma$ $\left(X_i \in \Gamma\right)$. </p>
-				<p> A demonstração será por indução no tamanho da sequência $X_1,X_2,\cdots,X_n$. O caso $n=1$ é direto, pois $X_n = B$. </p> 
-				<p> No caso $n=1$, temos $X_n = B$. Daí temos $X_n = B = A$ ou $X_n = B \in\Gamma$. Se $B = A$, a implição $A\implies B \equiv A \implies A$ sai pelo <a href ="https://math.stackexchange.com/questions/3464741/propositional-logic-how-to-prove-that-a-implies-itself">Teorema 1</a>, portanto $\Gamma \vdash A \implies B$. Se $B\in \Gamma$, temos </p>
+				<p> Para simplificar notação, vamos considerar que os axiomas da teoria estão contidos em $\Gamma$. </p>
+				<p> Primeiro, vamos analisar o que $\Gamma\cup \{A\}\vdash B$ significa. A nossa hipótese diz que existe uma demonstração de $B$ usando $\Gamma\cup \{A\}$ como hipótese. Ou seja, existe uma sequência $X_1,X_2,\cdots,X_n$ obedecendo (1)  $X_n = B$ e (2) Para cada $X_i$, pelo menos um dos 3 ocorre: </p>
+				<ul>
+					<li> $X_i$  veio por M.P de dois anteriores; </li>
+					<li> $X_i = A$ ;</li>
+					<li> $X_i \in \Gamma$. </li>
+				</ul>
+				<p> A demonstração será por indução completa no tamanho da sequência $X_1,X_2,\cdots,X_n$.  </p> 
+				<h3> Caso $n=1$: </h3>
+				<p> No caso $n=1$,  temos uma sequência $X_1$ com uma fórmula só. Pela propriedade (1) da sequência, temos $X_1 = B$. Observe que  $X_1$ não pode ter vindo por M.P de dois anteriores, portanto pela propriedade (2)  ou $X_1 = A$ ou $X_1 \in \Gamma$.  </p>
+				<p> Se $X_1 = A$, temos $X_1 = B = A$. Pelo <a target="_blank" href ="calcProposicional.html#teo1"> Teorema 1 </a> , temos $\Gamma \vdash A \implies A$. Como $A=B$, temos $\Gamma \vdash A \implies B$. </p>
+				<p> Se $X_1 \in \Gamma $, temos $X_1 = B \in \Gamma$. Logo $B$ é uma das hipóteses. Temos:  </p>
+				<ol>
+					<li> $\Gamma$ (Hipótese) </li>
+					<li> $B $ ($B \in \Gamma$)</li>
+					<li> $B \implies (A \implies B)$ (<a target="_blank" href = "calcProposicional.html#ax"> Axioma 1 </a>)  </li>
+					<li> $A \implies B$ (MP 2,3) </li>
+				</ol>
+				Logo $\Gamma \vdash A \implies B$.
+				<h3> Hipótese de indução </h3>
+				<p> Supomos que se $\Gamma\cup \{A \} \vdash B$ e  a demonstração de $B$ dada por $X_1,X_2,\cdots,X_n$ tiver tamanho menor ou igual a $k$, então $\Gamma \vdash A \implies B$. </p>
+				<h3> Caso $n = k+1$: </h3>
+				<p> Temos  $\Gamma\cup \{A \} \vdash B$ e a demonstração de $B$ é  dada por $X_1,X_2,\cdots,X_k, X_{k+1}$. Temos portanto $B = X_{k+1}$ e: </p>
+				<ul>
+					<li> $X_{k+1}$  veio por M.P de dois anteriores; </li>
+					<li> $X_{k+1} = A$ ;</li>
+					<li> $X_{k+1} \in \Gamma$. </li>
+				</ul>
+				<p> Se $X_{k+1} = A$ ou $X_{k+1} \in \Gamma$, a demonstração será análoga ao caso $n =1$. </p>
+				<p> Se $B = X_{k+1}$  veio por M.P de dois anteriores, existem $X_j$ ($1 \leq j \leq k$) e $X_q$ ($1 \leq q < j$) tal que $X_j = (X_q \implies B) $. Pela hipótese de indução $\Gamma \vdash A \implies X_j$ e $\Gamma \vdash A \implies X_q$. Temos:   </p>
+				<ol>
+					<li> $\Gamma$ (Hipótese) </li>
+					<li> $A \implies X_j$ (Hipótese de indução)</li>
+					<li> $A \implies X_q$ (Hipótese de indução)</li>
+					<li> $A \implies (X_j \implies B)$ (3 e $X_q = (X_j \implies B)$)</li>
+					<li> $ ( A \implies (X_j \implies B) ) \implies ((A \implies X_j) \implies (A \implies B) ) $ (<a target="_blank" href = "calcProposicional.html#ax" >Axioma 2</a>)</li>
+					<li> $ (A \implies X_j) \implies (A \implies B)  $ (MP 4,5)</li>
+					<li> $ A \implies B  $ (MP 2,6)</li>
+				</ol>
+				Logo $\Gamma \vdash A \implies B$.
 			</section>
 		</main>
 	</body>
-</html>
+</html> 
 
