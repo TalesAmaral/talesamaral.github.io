@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+		<link rel= "stylesheet" href = "padrao.css">
+		<meta name = "description" content = "Página contendo um exemplo de curvas de bézier.">
+		<meta name = "author" content = "tales amaral"> 
+		<title>Curvas de Bézier  </title>
+		<link rel="icon" type="image/x-icon" href="img/tandera.ico">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script>
+			MathJax = {
+							tex: {
+											inlineMath: [['$', '$'], ['\\(', '\\)']]
+										},
+						};
+		</script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	</head>
+		<header>
+			<nav>
+				<a href = "index.html" > Início </a>
+				<a href="https://github.com/TalesAmaral/talesamaral.github.io" ><svg class="icon" viewBox="0 0 32 32"><path d="M16 0.395c-8.836 0-16 7.163-16 16 0 7.069 4.585 13.067 10.942 15.182 0.8 0.148 1.094-0.347 1.094-0.77 0-0.381-0.015-1.642-0.022-2.979-4.452 0.968-5.391-1.888-5.391-1.888-0.728-1.849-1.776-2.341-1.776-2.341-1.452-0.993 0.11-0.973 0.11-0.973 1.606 0.113 2.452 1.649 2.452 1.649 1.427 2.446 3.743 1.739 4.656 1.33 0.143-1.034 0.558-1.74 1.016-2.14-3.554-0.404-7.29-1.777-7.29-7.907 0-1.747 0.625-3.174 1.649-4.295-0.166-0.403-0.714-2.030 0.155-4.234 0 0 1.344-0.43 4.401 1.64 1.276-0.355 2.645-0.532 4.005-0.539 1.359 0.006 2.729 0.184 4.008 0.539 3.054-2.070 4.395-1.64 4.395-1.64 0.871 2.204 0.323 3.831 0.157 4.234 1.026 1.12 1.647 2.548 1.647 4.295 0 6.145-3.743 7.498-7.306 7.895 0.574 0.497 1.085 1.47 1.085 2.963 0 2.141-0.019 3.864-0.019 4.391 0 0.426 0.288 0.925 1.099 0.768 6.354-2.118 10.933-8.113 10.933-15.18 0-8.837-7.164-16-16-16z"></path></svg>Github</a>
+			</nav>
+			<h1> Curvas de Bézier </h1>
+		<script>
+			class Ponto {
+				constructor(x,y, ctx){
+					this.x = x;
+					this.y = y;
+					this.ctx = ctx;
+					this.raio = 2;
+				}
+				draw(cor){
+					this.ctx.beginPath();
+					this.ctx.arc(this.x,this.y, this.raio, 0, 2*Math.PI, false);
+					this.ctx.fillStyle = cor;
+					this.ctx.fill();
+
+				}
+				
+			}
+			function d(x1,y1,x2,y2){
+				return ((x1-x2)**2+(y1-y2)**2)**0.5
+			}
+			function pegarMaisProximos(x,y, pontos){
+				const pontosCopia = pontos.slice();
+				pontosCopia.sort( (a,b) => (d(x,y, a.x,a.y) > d(x,y,b.x,b.y) ? 1 : -1) );
+				return pontosCopia.slice(0,3);
+				
+
+			}
+			function curvaBezier(x,y,nPontos, pontos, ctx){
+				
+				let buff;
+				for (let g = 0; g< nPontos; g++){
+						buff = pontos.shift();
+						pontos.push(buff);
+						buff.draw("red");
+						
+						ctx.beginPath();
+						ctx.moveTo(x,y);
+						let i, binCoef, coef;
+						const coefLista = [1,];
+						binCoef = 1;
+						for ( i = 1; i<= nPontos; i++){
+							binCoef = binCoef*(nPontos +1- i)/(i)
+							coefLista.push(binCoef);
+							
+						}
+						var posX,posY;
+						ctx.strokeStyle = "red";
+						for (let t = 0; t<=1; t+=0.02){
+							binCoef = (1-t)**nPontos;	
+							posX = binCoef*x;
+							posY = binCoef*y;
+							for (i = 0; i<nPontos; i++){
+								binCoef = binCoef*(t/(1-t))
+								coef = coefLista[i+1]*binCoef;
+								posX+= pontos[i].x*coef;
+								posY+= pontos[i].y*coef;
+								
+							}
+							ctx.lineTo(posX,posY);
+							
+							
+						}
+						ctx.lineTo(pontos[nPontos-1].x,pontos[nPontos-1].y);
+						ctx.stroke();
+				
+				}
+			}
+			function drawCanva(ctx, pontos, nPontos, w,h){
+					ctx.beginPath();
+					ctx.rect(0,0,w,h);
+					ctx.fillStyle = "black";
+					ctx.fill();
+					for (let i =0; i<nPontos; i++){
+						pontos[i].draw("white");
+						
+					}
+			}
+			function main(){
+				var canvas = document.getElementById('canva');
+				const w = 1024;
+				const h = 600;
+				const nPontos = 500;
+				const pontos = [];
+				var cRect,x,y, pontosProximos;
+				if (canvas.getContext){
+					var ctx = canvas.getContext('2d');
+					for (let i =0; i<nPontos; i++){
+						pontos[i] = new Ponto(Math.random()*w, Math.random()*h, ctx);
+						
+					}
+					drawCanva(ctx,pontos,nPontos, w,h);
+					canvas.addEventListener("mousemove", function(e) {
+						drawCanva(ctx,pontos,nPontos, w,h);
+						 cRect = canvas.getBoundingClientRect();
+						 x = Math.round(e.clientX - cRect.left);
+						 y = Math.round(e.clientY - cRect.top);
+						if ( y<= h){
+							pontosProximos = pegarMaisProximos(x,y,pontos);
+							curvaBezier(x,y,3,pontosProximos,ctx);
+						}
+
+					});
+
+
+				}
+
+							
+			}
+
+		</script>
+		</header>
+	<body onload = "main();">
+		<main >
+			<canvas style = " position: absolute;  left: 0; right: 0; margin:auto"  id="canva" width="1024" height="768"></canvas>
+		</main>
+	</body>
+</html>
+
