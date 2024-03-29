@@ -40,30 +40,35 @@
 			<script type="module">
 				import * as THREE from 'three';
 				import WebGL from 'three/addons/capabilities/WebGL.js';
+				import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
 
 				const scene = new THREE.Scene();
 				const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-				camera.position.set(150, 150, 150);
+				camera.position.set(50, 50, 50);
 				camera.lookAt(0,0,0);
-				const numeroPontos = 100000;
+
+				const numeroPontos = 150000;
 				const sigma = 10;
 				const beta = 8/3;
-					const rho = 5;
-				const dt =0.00005;
+				const rho = 28;
+				const dt =0.0005;
 				
 
 				const renderer = new THREE.WebGLRenderer();
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				document.body.appendChild( renderer.domElement );
+				let controls = new OrbitControls( camera, renderer.domElement );
+				controls.listenToKeyEvents( window ); // optional
 
 				const vertices = [];
 				const colors = [];
 				const color = new THREE.Color();
 
 				for ( let i = 0; i < numeroPontos; i ++ ) {
-					const x = THREE.MathUtils.randFloatSpread( 100 );
-					const y = THREE.MathUtils.randFloatSpread( 100 );
-					const z = THREE.MathUtils.randFloatSpread( 100 );
+					const x = THREE.MathUtils.randFloatSpread( 300 );
+					const y = THREE.MathUtils.randFloatSpread( 300 );
+					const z = THREE.MathUtils.randFloatSpread( 300 );
 
 					vertices.push( x, y, z );
 					color.setRGB( Math.random(), Math.random(), Math.random(), THREE.SRGBColorSpace );
@@ -75,20 +80,20 @@
 				geometry.setAttribute( 'color', new THREE.Float32BufferAttribute( colors, 3 ) );
 				geometry.computeBoundingSphere();
 
-				const material = new THREE.PointsMaterial( { vertexColors: true}  );
+				const material = new THREE.PointsMaterial( { size: 0.5 ,  vertexColors: true}  );
 				const points = new THREE.Points( geometry, material );
 				scene.add( points );
 				function render(){
 
 					const positions = points.geometry.getAttribute( 'position' );;
 
-					const quantidade = 1;
+					const quantidade = 10;
 					for (let count = 0; count < quantidade; count++){
 							for ( let i = 0; i < numeroPontos; i +=1) {
 								let x = positions.getX(i);
 								let y = positions.getY(i);
 								let z = positions.getZ(i);
-								x  += dt*sigma*(x-y);
+								x  += dt*sigma*(y-x);
 								y+= dt*(x*(rho-z)-y);
 								z +=dt*(x*y -beta*z);
 
