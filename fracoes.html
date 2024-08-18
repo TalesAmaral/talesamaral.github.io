@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+		<link rel= "stylesheet" href = "padrao.css">
+		<meta name = "description" content = "">
+		<meta name = "author" content = "tales amaral"> 
+		<title> Jogo frações  </title>
+		<link rel="icon" type="image/x-icon" href="img/tandera.ico">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		<script>
+			MathJax = {
+				tex: {
+					inlineMath: [['$', '$'], ['\\(', '\\)']]
+				},
+			};
+		</script>
+		<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+		<script  src="jogo.js"></script>
+	</head>
+	<header>
+		<h1> Jogo frações  </h1>
+	</header>
+	<body>
+		<main>
+			<div id="fractionSquare" class="square">
+				<div class="fraction">
+					<span class="numerator">1</span>
+					<span class="line"></span>
+					<span class="denominator">2</span>
+				</div>
+				<div class="simbolo">
+					?
+				</div>
+				<div class="fractionPlayer">
+					<span class="numerator">1</span>
+					<span class="line"></span>
+					<span class="denominator">2</span>
+				</div>
+			</div>
+			<div id= "botoes">
+				<button onclick="handleFraction(0)">\( < \) </button>
+				<button onclick="handleFraction(1)">\( = \) </button>
+				<button onclick="handleFraction(2)">\( > \) </button>
+			</div>
+
+			<div id = "status">  <span id="time"></span> <span id = "pontuacao" > 0 </span> </div>
+
+
+		</main>
+	</body>
+</html>
+
